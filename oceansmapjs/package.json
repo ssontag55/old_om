@@ -1,0 +1,23 @@
+{
+  "name": "oceansmap-js",
+  "version": "0.0.0",
+  "description": "oceansmap-js ============",
+  "main": "servelocally.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/asascience/oceansmap-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asascience/oceansmap-js/issues"
+  },
+  "homepage": "https://github.com/asascience/oceansmap-js",
+  "dependencies": {
+    "express": "~3.4.8",
+    "request": "~2.33.0"
+  }
+}

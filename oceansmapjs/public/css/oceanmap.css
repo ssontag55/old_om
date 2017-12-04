@@ -1,0 +1,588 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* font stuff */
+* {
+  font-family: 'Roboto', sans-serif;
+  color: #505050;
+}
+
+/* ScrollBar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(181,181,181,1); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #CCCCCC; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.8); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: #CCCCCC; 
+}
+
+/* login stuff */
+#login {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/login/colorful_wave.jpg'),url('../images/login/bkgd.png') ;
+  background-position: 0px;
+  background-size: 100% 35%,100% 100%;
+  background-repeat: no-repeat;
+  overflow-y: auto;
+  z-index: 1;  
+/* for dev only */
+/*  
+ */
+ display: none;
+}
+
+/* landing page stuff */
+#landing {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/home/bkgd.jpg') ;
+  background-position: 0px;
+  background-size: 100% 100%,100% 100%;
+  background-repeat: no-repeat;
+  overflow-y: auto;
+  z-index: 1;  
+}
+.landinggrid {
+  padding-right:30px;
+  cursor: pointer;
+}
+
+#login .main {
+  position: relative;
+  top: 13%;
+  width: 70%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(255,255,255,0.85);
+}
+
+#login .terms {
+  margin-top: 12px;
+  margin-left: 13px;
+}
+
+/* main app */
+
+#mainappcontainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  display: none; 
+}
+
+#leftpanel {
+  position: absolute;
+  width: 270px;
+  height: 100%;
+  box-shadow: 1px 0px 5px #888888;
+  background: rgba(235, 237, 241, 1);
+  z-index: 99999999;
+}
+
+#rightcontainer {
+  position: absolute;
+  right: 0px;
+  height: 100%;
+}
+
+#topbar {
+  height: 45px;
+  box-shadow: 1px 0px 5px #888888;
+  background: rgba(157, 165, 187, .5);
+  z-index: 10;
+}
+
+#models {
+  position: absolute;
+  margin: 1em;
+  width: 90%;
+  bottom: 0px;
+  display: block;
+  font-size: 13px;
+  height: 165px;
+}
+
+#modelslist{
+  height: 85%;
+  overflow-y: auto;
+  overflow-x: hidden;;
+  margin-right: -16px;
+}
+
+#station_name{
+  height: 9px;
+}
+
+#stations {
+  position: inherit;
+  margin: 1em;
+  line-height: 35px;
+  width: 95%;
+  display: block;
+  font-size: 13px;
+  top: 0px;
+  padding-bottom: 95px;
+  bottom: 180px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#layerTOC{
+  position: absolute;
+  margin: 1em;
+  height: 18%;
+  line-height: 35px;
+  width: 90%;
+  display: block;
+  font-size: 13px;
+  bottom: 0;
+  z-index: 100;
+  background-color: rgba(235, 237, 241, 1)
+}
+
+.graphs {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+/*  height: 220px; visible */
+/* hidden */
+  height: 39px;
+  display: block;
+  box-shadow: 5px -1px 5px #888888;
+/*  content:'';
+  line-height: 200px;
+  text-align: center; */
+  background: none repeat scroll 0% 0% rgba(157, 165, 187, 0.2);
+}
+
+.txtover{
+  font-size: 25px;
+  opacity:0.9;
+  margin-right: auto;
+  margin-left: auto;
+  position: absolute;
+  top: -15px;
+  left: 50px;
+  right: 50px;
+}
+
+.clickmap {
+  background-image:url('images/graph.jpg');
+  opacity: 0.3;
+  height: 100%;
+}
+
+span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal; 
+  opacity: 1;
+}
+
+#map {
+  position: absolute;
+  top: 45px;
+/*  bottom: 220px; */
+  bottom: 0px;
+  left: 0px;
+  right: 0px; 
+/*
+for dev
+*/ 
+display: none; 
+}
+
+#catalog {
+  position: absolute;
+  top: 45px;
+  left: 0px;
+  display: none;
+  right: 0px;
+  bottom: 0px;
+}
+
+#catalog h3 {
+  text-align: center;
+}
+
+#tools {
+  position: relative;
+  height: 10px;
+  font-size: 13px;
+  margin-left:125px;
+  /*background-color: #FFFFFF;*/
+}
+
+/* d3 stuff, let's try to use similar css
+    for the axis's and whatnot? */
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+/* d3 compass */
+.directionpath {
+  fill: steelblue;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+  fill-opacity: 0.7;
+}
+
+.bottomxaxis path,
+.bottomxaxis line {
+  font-size: 0.8em;
+  fill: none;
+  stroke: #000;
+}
+
+#timeslider .axis text {
+  font-size: 11px;
+}
+
+#timeslider .axis path {
+  display: none;
+}
+
+#timeslider .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#timeslider .grid-background {
+  fill: #ddd;
+}
+
+#timeslider .grid line,
+#timeslider .grid path {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+#timeslider .grid .minor.tick line {
+  stroke-opacity: .5;
+}
+
+#timeslider .brush .extent {
+  stroke: #000;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+#timeslider .ts {
+  font-size: 12px;
+  font-weight: bold;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.timeslidermap {
+  position: absolute;
+  left: 101px;
+  width: 290px;
+  bottom: -36px;
+  z-index: 999999;
+}
+#timesliderlabel {
+  position: absolute;
+  left: 182px;
+  width: 156px;
+  bottom: 24px;
+  margin-left: -.9em;
+  z-index: 999999;
+  background-color: initial;
+}
+#timesliderlabelstart {
+  position: absolute;
+  left: 14px;
+  width: 84px;
+  background-color: #224D79;
+  bottom: 3px;
+  opacity: .7;
+  font-size: 11px;
+  margin-left: -.9em;
+  z-index: 999999;
+}
+#timesliderlabel .detail{
+  color:#424242;
+}
+#timesliderlabelend .detail{
+  color:white;
+}
+#timesliderlabelstart .detail{
+  color:white;
+}
+#timesliderlabelend {
+  position: absolute;
+  left: 415px;
+  width: 84px;
+  background-color: #224D79;
+  bottom: 3px;
+  opacity: .7;
+  font-size: 11px;
+  margin-left: -.9em;
+  z-index: 999999;
+}
+
+#timeslider .svgclass{
+  position: absolute;
+  height: 50px;
+  width: 440px;
+}
+
+.launch .item .active{
+  z-index: 1000000 !important;
+}
+
+.ui .list .item{
+  width: 220px;
+}
+
+#time_controls {
+  position: absolute;
+  bottom: 0px;
+  /*height: 50px;*/
+  z-index: 1000000;
+}
+
+#catalog .ui.celled.grid {
+  -webkit-box-shadow: 0px 0px 0px 0px #DFDFDF; !important
+  box-shadow: 0px 0px 0px 0px #DFDFDF; !important
+}
+
+#catalog .ui.celled.grid > .column:not(.row),
+.ui.celled.grid > .row > .column {
+  -webkit-box-shadow: 0px 0px 0px 0px #dfdfdf; !important
+  box-shadow: 0px 0px 0px 0px #dfdfdf; !important
+}
+
+#catalog .ui.celled.grid > .row,
+.ui.celled.grid > .column.row,
+.ui.celled.grid > .column.row:first-child {
+  -webkit-box-shadow: 0px 0px 0px 0px #dfdfdf;
+}
+
+#catalog .ui.label {
+  text-transform: none;
+}
+
+#date_slider {
+  width: -moz-calc(100%);
+  width: -webkit-calc(100%);
+  width: calc(100%);
+  display: none;
+}
+
+#start {
+  vertical-align: bottom;
+  text-align: right;
+  padding-bottom: 17px;
+}
+
+#end {
+  vertical-align: bottom;
+  padding-bottom: 17px;
+}
+
+.ui-rangeSlider-label-value,.ui-ruler-tick-label {
+  color: white;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+
+.ui-rangeSlider-bar {
+  background: rgba(104,161,214,0.75);
+}
+
+.ui-rangeSlider {
+  padding-top: 0px;
+}
+
+.errornull0{
+  color: red; 
+  font-size: 11px; 
+  text-align: center; 
+  position: absolute;
+  padding-top: 55px;
+  padding-left: 5px;
+}
+
+.errornull1{
+  color: red; 
+  font-size: 11px; 
+  text-align: center; 
+  position: absolute;
+  padding-top: 55px;
+  right: 5px;
+}
+#thumbnails{
+  height:10px;
+  padding-top: 10px;
+}
+#thumbdiv{
+  height: 92%;
+  overflow-y: auto;
+}
+
+#big_graph{
+  position: absolute;
+  top: 80px;
+  width: 100%;
+}
+#thumbnails .column {
+  /*cursor: pointer;*/
+}
+
+i.offshore {
+  color: #57051B;
+}
+
+i.nearshore {
+  color: #31869E;
+}
+
+i.weather {
+  color: #73AA69;
+}
+
+i.tides {
+  color: #525252;
+}
+
+i.waves {
+  color: #FECC6D;
+}
+
+i.all {
+  color: #151D22;
+}
+
+.ui.accordion .title {
+  padding : 0;
+}
+
+.ui.accordion .content {
+  padding : 0 0 0 1em;
+}
+
+#stationListMain {
+  width : calc(100% - 1em);
+}
+
+#stationListMain p {
+  margin : 0;
+  padding : 0;
+  font-size : small;
+  line-height : 26px;
+}
+
+#stationListMain .ui.divider {
+  margin : 0.5rem 0rem;
+}
+
+#stationListMain .segment {
+  padding : 0 0 0 0.1em;
+  margin : 0.1em 1.1em 1em 0;
+}
+
+#stationListMain .segment p {
+  line-height : 20px;
+}
+
+#stationListMain .info-header {
+  text-align : center;
+  padding: 2px 0;
+}
+
+.nodata {
+  color : red;
+  font-weight : bold;
+}
+
+.subsample-help {
+  text-transform: none;
+  float: right;
+  margin-left: 10px;
+}
+
+#thumbnails .ui.button {
+  text-transform : none;
+  float : right;
+  margin-left : 10px;
+}
+
+#thumbnails .param-info-wrapper {
+  margin-top : 40px;
+}
+
+#thumbnails .no-padding {
+  padding : 0;
+  line-height : 24px;
+}
+
+#currentsStats {
+  float : left;
+  padding-top : 5px;
+  padding-left : 10px;
+}
+
+#param0Stats .button {
+  float : left !important;
+}
+
+.subsample {
+  float : right;
+  margin-top : 7px;
+}
+
+.alwaysontop {
+  z-index : 10000000;
+}
+
+#map-info {
+  z-index: 1000;
+  top: 13px;
+  position: absolute;
+  left: 50px;
+}
+
+#map-info .label {
+  text-transform: inherit;
+  padding: .3em .4em;
+}
