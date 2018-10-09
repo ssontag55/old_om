@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" 
+      type="image/png" 
+      href="favicon.ico" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>OceansMap - Anadarko</title>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link rel="stylesheet" href="css/foundation-icons/foundation-icons.css"> -->
+    <!-- <link rel="stylesheet" href="css/c3.css"> -->
+    <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="js/lib/jQRangeSlider-5.7.0/iThing.css">
+    <link rel="stylesheet" href="css/semantic.min.css">
+    <link rel="stylesheet" href="css/leaflet_min.css">
+    <link rel="stylesheet" href="css/oceanmap.css">
+  </head>
+  <body>
+    <div id="login">
+      <img src="images/rps.png" style="position:absolute; right:1px" >
+      <img src="images/and.png" style="position:absolute; left:1px" >
+      <div class="main ui raised segment">
+        <div class="ui center aligned large header">
+          <img src="images/login/oceans_map_logo.png" width="90%" style="max-width: 179px;" >
+        </div> 
+        <p style=" text-align: center; ">
+          OceansMap is a met-ocean data system.
+          It consists of a map, a database and web
+          services. The system allows users and groups to
+          manage, visualize and analyze a variety
+          of met-ocean data including operational
+          models and in-situ observation data. <a style="color:#9C2236" href="http://www.asascience.com/about/contact/" target="_blank">Contact us</a> for more information.
+        </p>
+        <div class="ui divider"></div>
+        <div class="ui form">
+          <div class="field">
+            <div class="ui left labled icon input">
+              <input id="username" type="text" placeholder="Username" />
+              <i class="user icon"></i>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left labeled icon input">
+              <input id="password" type="password" placeholder="Password" />
+              <i class="lock icon"></i>
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui checkbox floated left terms">
+              <input type="checkbox"  style=" z-index; 50;"/>
+              <label  style=" font-size: 12px; ">
+                Agree to
+                <a href="http://asascience.com/agreements/oilmap.shtml" target="_blank">Terms and Conditions</a>
+              </label>
+            </div>
+            <div id="loginbutton" class="ui blue sumbit button floated right disabled">
+              Login
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="mainappcontainer">
+      <div id='leftpanel'>
+        <div id="stations">
+          <div class='ui dividing header'>
+            Station Data
+            <div id="obsinfo" style='position: absolute; right: 1px; margin-top: -25px;' >
+            <i class='info letter icon'  data-html="<h4 style='text-align:center;' class=\'ui header\''> Real Time Data Management</h4><p style='text-align:center;'>RPS provides temporal data management, ADCP support and leasing for operational use. <p style='text-align:center;'></p>"></i>
+            </div>
+          </div>
+          <div id="stationListMain"></div>
+        </div>
+       <!--  <div id="models">
+          <div class='ui dividing header'>
+            Modeled Data
+            <div id="edsinfo" style='position: absolute; right: -10px; margin-top: -25px;' >
+            <i class='info letter icon'  data-html="<h4 style='text-align:center;' class=\'ui header\''> Environmental Data Server (EDS) </h4><p style='text-align:center;'>RPS provides hindcast and forecast models for operational use. <p style='text-align:center;'><img src='images/icon32.png' > </p>"></i>
+            </div>
+          </div>
+          <div id="modelslist" class='ui list'></div>
+        </div>
+        <div id="layerTOC">
+          <div class='ui dividing header' id="listlayers">
+            Layers
+          </div>
+          <div id="layerListMain" class='ui list'></div>
+        </div> -->
+      </div>
+      <div id='rightcontainer'>
+        <div id='topbar' class='ui fixed menu'>
+          <div id="titlebar" style="float:right; padding-right:295px; padding-top:3px;">
+            <a href="http://rpsgroup.com/" target="_blank">
+               <img src="images/and1.png" height="42" width="210" >
+            </a>
+          </div>
+          <div class='container'>
+             <a class='launch item active' style='margin-left: -1px; position:absolute;background-color: #CDD1DC;'>
+                <i class='icon exchange layout'></i>
+            </a>
+            <div id="tools">
+              <div class="ui labeled icon toggle overview button view" style="right: 55px; top:6px; font-size:12px">
+                    Graph View
+                  <i class="chart basic icon"></i>
+              </div>
+              <div class="ui dropdown selection" id="deployDD" style="right:6px; top:7px;">
+                <input type="hidden" name="Artist">
+                <i class="reorder icon float left"></i>
+                <div class="default text">Deployment ..</div>
+                <div class="menu">
+                  <div class="item" data-value="all">Show All Deployments</div>
+                  <div class="item" data-value="1">Deployment 1</div>
+                  <div class="item" data-value="2">Deployment 2</div>
+                  <div class="item" data-value="3">Deployment 3</div>
+                  <div class="item" data-value="4">Deployment 4</div>
+                  <div class="item" data-value="5">Deployment 5</div>
+                  <div class="item" data-value="6">Deployment 6</div>
+                  <div class="item" data-value="7">Deployment 7</div>
+                </div>
+              </div>
+              <div class="ui dropdown selection" id="observs" style="top:7px;">
+                <input type="hidden" name="Artist">
+                <i id="current_observs" class="all circle icon"></i>
+                <div class="default text">Type  ...</div>
+                <i class="reorder icon"></i>
+                <div class="menu">
+                  <div class="item active" data-value="all" selected=true><i class="all circle icon"></i>Show All Types</div>
+                  <div class="item" data-value="Nearshore"><i class="nearshore circle icon"></i>Nearshore</div>
+                  <div class="item" data-value="Offshore"><i class="offshore circle icon"></i>Offshore</div>
+                  <div class="item" data-value="Weather"><i class="weather circle icon"></i>Weather</div>
+                  <div class="item" data-value="Tides"><i class="tides circle icon"></i>Tides</div>
+                  <div class="item" data-value="Waves"><i class="waves circle icon"></i>Waves</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='timeslidermap launch item' id='timesmap' style='margin-bottom: 41px;'>
+              <div id='timeslidermap'></div>
+          </div>
+          <div id='timesliderlabelstart' class='ui label inline'>
+            <div class='detail'>1/11/2012</div>
+          </div>
+          <div id='timesliderlabel' class='ui label inline'>
+            <div class='detail'>Map Time: 1/11/2012</div>
+          </div>
+          <div id='timesliderlabelend' class='ui label inline'>
+            <div class='detail'>1/11/2012</div>
+          </div>
+        <div id="map"></div>
+        <div id="catalog">
+          <div id="time_controls" class="ui celled grid">
+            <div class="row">
+              <div id="start" class="one wide column"></div>
+              <div class="three wide column">
+                <div id="date_slider"></div>
+              </div>
+              <div id="end" class="one wide column"></div>
+            </div>
+          </div>
+          <div id="big_graph"></div>
+          <!-- <h3 id="station_name">Select a station.</h3> -->
+          <div id="thumbdiv">
+            <div id="thumbnails" class="ui celled grid">
+              <div class="row">
+                <div id="param0InfoContainer" class="six wide column"><div class="ui segment">
+                  <div id="param0Header" class="ui top attached label">&nbsp;</div> 
+                  <div class="ui celled grid param-info-wrapper">
+                    <div class="row">
+                      <div class="six wide column no-padding">
+                        <span id="param0Stats">&nbsp;</span> 
+                      </div>
+                      <div id="param0Controls" class="six wide column no-padding"></div>
+                    </div> 
+                  </div>
+                </div></div>
+                <div id="param1InfoContainer" class="six wide column"><div class="ui segment">
+                  <div id="param1Header" class="ui top attached label">&nbsp;</div>
+                  <div class="ui celled grid param-info-wrapper">
+                    <div class="row">
+                      <div class="six wide column no-padding">
+                        <span id="param1Stats">&nbsp;</span>
+                      </div>
+                      <div id="param1Controls" class="six wide column no-padding"></div>
+                    </div>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<!--        <div id='graphs' class="graphs">
+          <div class='clickmap'></div>
+          <div class="txtover">
+            <p>Click on a NDBC Station to view Conditions</p>  
+          </div>
+        </div> -->
+<!--
+        <div id='graphs' class='graphs'>
+          <div class='ui small tabular menu' style='z-index: 1; background: rgba(157, 165, 187, .5);'>
+            <a class='item active' data-id='winds'>Wind</a>
+            <a class='item' data-id='air_temperature'>Air Temp</a>
+            <a class='item' data-id='waves'>Wave Height</a>
+            <a class='item' data-id='sea_water_temperature'>Sea Temp</a>
+            <a class='item' data-id='currents'>Water Speed</a>
+            <a class='item' data-id='air_pressure_at_sea_level'>Air Pressure</a>
+            <a class='item' data-id='sea_water_salinity'>Water Salinity</a>
+          </div>
+          <div class="ui icon button" style="position: absolute; top: 0px; right: 0px; height: 39px;z-index:5;">
+            <i class="resize vertical icon"></i>
+          </div>
+          <div id="c3graph"></div>
+          <div style='display: none' class='ui active large loader'></div>
+        </div>
+-->
+      </div>
+    </div>
+    <div id="modal-alert" class="ui small modal transition">
+      <i class="close icon"></i>
+      <div id="modal-header" class="header">
+      </div>
+      <div class="content">
+        <div id="modal-content" class="center">
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui button">
+          Okay
+        </div>
+      </div>
+    </div>
+    <!-- libs -->
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+    </script>
+<!--    <script src="js/lib/jquery-2.0.3.min.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="js/lib/jquery.scrollintoview.js"></script>
+<!--    <script src="js/lib/jquery-ui-1.10.4.custom.min.js"></script> -->
+    <script src="js/lib/math.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="js/lib/spin.js"></script>
+    <script src="js/lib/jquery.spin.js"></script>
+    <script src="js/lib/jQRangeSlider-5.7.0/jQDateRangeSlider-withRuler-min.js"></script>
+    <script src="js/lib/date.js"></script>
+    <script src="js/lib/dateFormat.js"></script>
+    <script src="js/lib/semantic.js"></script>
+    <script src="js/lib/d3.v3.js"></script>
+    <script src="js/lib/leaflet.js"></script>   
+    <script src="js/lib/underscore-min.js"></script> 
+    <script src="js/lib/backbone-min.js"></script>
+<!--<script src="js/lib/esri-leaflet.js"></script>
+<script src="js/lib/draw/leaflet.draw.js"></script>    
+    <script src="js/lib/SOS/OpenLayers.js"></script>
+    <script src="js/lib/SOS/SOS.js"></script>
+    <script src="js/lib/SOS/SOS.Ui.js"></script>
+    <script src="js/lib/c3.js"></script>
+    end libs -->
+    <script src="js/StationMarker.js"></script>
+    <script src="js/map.js"></script>
+    <!--
+    <script src="js/stations.js"></script>
+    this for bottom panel of the map
+    <script src="js/bottomgraph.js"></script> -->
+    <script src="js/catalog.js"></script>
+    <script src="js/oceanmap.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-48872902-1', 'oceansmap.com');
+      ga('send', 'pageview');
+  </script>
+  </body>
+</html>
